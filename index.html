@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Easily resize images while maintaining aspect ratio. Upload, resize, and download your images with ease.">
+  <meta name="keywords" content="image resize, photo editor, image processing">
+  <meta name="author" content="saramjh">
+  <title>Image Resizer</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header>
+    <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Image Resizer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h1>
+    <p>This image resizer never collects your information.</p>
+    <p>This image resizer takes your local storage, so feel free to use it.</p>
+  </header>
+
+  <main class="container">
+    <!-- Section 1: Select Images -->
+    <section class="section">
+      <h2 class="section-header">1. Select Images or Enter Image URLs</h2>
+      <p>Select multiple or single image to resize or enter image URLs.</p>
+      <div class="section-body">
+        <input type="file" id="fileInput" multiple>
+        <div class="file-list" id="fileList"></div>
+        <div class="url-input-section">
+          <label for="imageUrls">Enter Image URLs (one per line):</label>
+          <textarea id="imageUrls" placeholder="Enter image URLs"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Resize Options -->
+    <section class="section">
+      <h2 class="section-header">2. Resize Options</h2>
+      <div class="section-body">
+        <div class="options">
+          <div class="option-row">
+            <label for="resizeWidth">Width (px): </label>
+            <input type="number" id="resizeWidth" placeholder="Enter width">
+          </div>
+          <div class="option-row">
+            <label for="resizeHeight">Height (px): </label>
+            <input type="number" id="resizeHeight" placeholder="Enter height">
+          </div>
+        </div>
+        <div class="options">
+          <label for="prefixCheckbox">
+            <input type="checkbox" id="prefixCheckbox">
+            Add "resized_" prefix to filenames
+          </label>
+        </div>
+        <button id="resizeBtn" onclick="resizeImages()">Resize Images</button>
+        <button class="reset-btn" onclick="resetAll()">Reset All</button>
+        <button id="downloadZipBtn" class="hidden" onclick="downloadZip()">Download All as ZIP</button>
+      </div>
+    </section>
+
+    <!-- Section 3: Resized Images -->
+    <section id="resizedImagesSection" class="section hidden">
+      <h2 class="section-header">3. Resized Images</h2>
+      <div id="imageGrid" class="masonry-container"></div>
+    </section>
+  </main>
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span> <!-- Close button for the modal -->
+      <h2>Error</h2>
+      <p id="errorMessage">The following files failed to process:</p>
+      <ul id="errorFileList"></ul>
+    </div>
+  </div>
+
+  <!-- Process Modal -->
+  <div id="resizeModal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitle">Processing Images</h2>
+      <div class="progress-bar" id="progressBar"></div>
+      <p id="progressText">0%</p>
+    </div>
+  </div>
+
+  <div id="bmc-button-container">
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button"
+      data-slug="saramjh" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee"
+      data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Image Resizer. All rights reserved.</p>
+  </footer>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="scripts/script.js"></script>
+
+</html>

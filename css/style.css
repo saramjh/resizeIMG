@@ -1,0 +1,270 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+	color: #333;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+header {
+	background-color: #ffffff;
+	border-bottom: 1px solid #e0e0e0;
+	padding: 10px 20px;
+	text-align: center;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+	font-size: 1.8em;
+	margin: 0;
+	color: #333;
+}
+
+header p {
+	font-size: 0.9em;
+	color: #666;
+}
+
+.container {
+	flex: 1;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.section {
+	width: 100%;
+	max-width: 900px;
+	margin-bottom: 20px;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.section-header {
+	font-size: 1.6em;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 15px;
+	color: #444;
+}
+
+.section-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input[type="file"],
+textarea {
+	width: 100%;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid #d0d0d0;
+	margin: 5px 0;
+	box-sizing: border-box;
+}
+
+input[type="number"] {
+	width: 100%;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid #d0d0d0;
+	margin: 5px 0;
+	box-sizing: border-box;
+}
+
+button {
+	font-size: 1em;
+	background-color: #007bff;
+	color: #ffffff;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	margin-top: 10px;
+	width: 100%;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+	box-sizing: border-box;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+button:disabled {
+	background-color: #e0e0e0;
+	color: #a0a0a0;
+	cursor: not-allowed;
+}
+
+.file-list ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.file-list li {
+	margin-bottom: 10px;
+}
+
+.file-list input[type="checkbox"] {
+	margin-right: 10px;
+}
+
+.file-list label {
+	font-size: 1em;
+	color: #333;
+}
+
+.masonry-container {
+	column-count: 4;
+	column-gap: 1em;
+	margin: 20px 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.masonry-item {
+	display: inline-block;
+	width: 100%;
+	break-inside: avoid;
+	margin-bottom: 1em;
+	box-sizing: border-box;
+}
+
+.masonry-item img {
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.image-actions {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.image-actions button {
+	background-color: #007bff;
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+	padding: 5px 10px;
+	font-size: 0.9em;
+	margin-left: 5px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+.image-actions button:hover {
+	background-color: #0056b3;
+}
+
+footer {
+	background-color: #ffffff;
+	border-top: 1px solid #e0e0e0;
+	padding: 15px;
+	text-align: center;
+}
+
+footer p {
+	margin: 0;
+	color: #777;
+}
+
+.hidden {
+	display: none;
+}
+
+.disabled-input {
+	background-color: #f0f0f0;
+	border: 1px solid #d0d0d0;
+	color: #a0a0a0;
+	cursor: not-allowed;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); /* Center modal */
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.modal-content {
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	text-align: center;
+	max-width: 500px;
+	width: 90%; /* Adjusted width for responsiveness */
+	box-sizing: border-box;
+}
+
+.progress-bar {
+	height: 10px;
+	background: #007bff;
+	width: 0;
+	margin: 10px 0;
+	border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+	.masonry-container {
+		column-count: 3;
+	}
+}
+
+@media (max-width: 768px) {
+	.masonry-container {
+		column-count: 2;
+	}
+}
+
+@media (max-width: 480px) {
+	.masonry-container {
+		column-count: 1;
+	}
+}
+
+/* Buy Me a Coffee Button Container */
+#bmc-button-container {
+	position: fixed;
+	bottom: 45px; /* Adjust the vertical position from the bottom */
+	right: 10px; /* Adjust the horizontal position from the right */
+	width: 210px; /* Adjust the width if needed */
+	height: 60px; /* Adjust the height if needed */
+	animation: bounce 2s infinite; /* Apply bounce animation */
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Apply shadow effect */
+	border-radius: 12px;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
