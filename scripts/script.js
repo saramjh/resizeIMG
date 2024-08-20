@@ -12,6 +12,9 @@ const fileInput = document.getElementById("fileInput")
 const resizeWidthInput = document.getElementById("resizeWidth")
 const resizeHeightInput = document.getElementById("resizeHeight")
 const prefixCheckbox = document.getElementById("prefixCheckbox")
+const errorModal = document.getElementById("errorModal")
+const errorMessage = document.getElementById("errorMessage")
+const errorFileList = document.getElementById("errorFileList")
 
 document.getElementById("fileInput").addEventListener("change", updateFileList)
 document.getElementById("imageUrls").addEventListener("input", updateFileList)
@@ -30,24 +33,35 @@ function updateFileList() {
 	Array.from(files).forEach((file, index) => {
 		const listItem = document.createElement("li")
 		listItem.innerHTML = `
-			<input type="checkbox" id="file-${index}" checked>
-			<label for="file-${index}">${file.name}</label>
-		`
+            <input type="checkbox" id="file-${index}" checked>
+            <label for="file-${index}">${file.name}</label>
+        `
 		fileListUl.appendChild(listItem)
 	})
 
 	// URL 처리
 	urls.forEach((url, index) => {
-		const urlIndex = index + files.length
-		const listItem = document.createElement("li")
-		listItem.innerHTML = `
-			<input type="checkbox" id="file-${urlIndex}" checked>
-			<label for="file-${urlIndex}">${url}</label>
-		`
-		fileListUl.appendChild(listItem)
+		if (isValidURL(url)) {
+			const urlIndex = index + files.length
+			const listItem = document.createElement("li")
+			listItem.innerHTML = `
+                <input type="checkbox" id="file-${urlIndex}" checked>
+                <label for="file-${urlIndex}">${url}</label>
+            `
+			fileListUl.appendChild(listItem)
+		}
 	})
 
 	fileListContainer.appendChild(fileListUl)
+}
+
+function isValidURL(url) {
+	try {
+		new URL(url)
+		return true
+	} catch (e) {
+		return false
+	}
 }
 
 function resizeImages() {
@@ -77,6 +91,7 @@ function resizeImages() {
 	const zip = new JSZip()
 
 	resizedImages = [] // 이전에 리사이즈된 이미지 초기화
+	let failedUrls = [] // 실패한 URL을 저장할 배열
 
 	// 로컬 파일 처리
 	files.forEach((file, index) => {
@@ -117,6 +132,7 @@ function resizeImages() {
 
 		img.onerror = function () {
 			console.error(`Failed to load image from URL: ${url}`)
+			failedUrls.push(url)
 			processedCount++
 			updateProgress()
 		}
@@ -130,10 +146,14 @@ function resizeImages() {
 
 			if (processedCount === totalFiles) {
 				setTimeout(() => {
-					displayImages()
-					modal.style.display = "none" // 모달 숨기기
-					downloadZipBtn.classList.remove("hidden")
-					resetResizingState()
+					if (failedUrls.length > 0) {
+						showErrorModal(failedUrls)
+					} else {
+						displayImages()
+						modal.style.display = "none" // 모달 숨기기
+						downloadZipBtn.classList.remove("hidden")
+						resetResizingState()
+					}
 				}, 100)
 			}
 		}
@@ -145,20 +165,26 @@ function resizeImages() {
 			const canvas = document.createElement("canvas")
 			const ctx = canvas.getContext("2d")
 
-			if (resizeWidth) {
+			// 크기 설정
+			if (resizeWidth && !resizeHeight) {
 				canvas.width = resizeWidth
 				canvas.height = img.height * (resizeWidth / img.width)
-			} else if (resizeHeight) {
+			} else if (resizeHeight && !resizeWidth) {
 				canvas.height = resizeHeight
 				canvas.width = img.width * (resizeHeight / img.height)
+			} else {
+				canvas.width = img.width
+				canvas.height = img.height
 			}
 
 			ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
 			canvas.toBlob(function (blob) {
-				const newFileName = `${prefix ? "resized_" : ""}${fileName}`
+				const newFileName = `${prefix ? "resized_" : ""}${fileName.replace(/\.[^/.]+$/, ".jpg")}`
 				zip.file(newFileName, blob, { binary: true })
 				resizedImages.push({ url: URL.createObjectURL(blob), name: newFileName })
 
+				// Progress 업데이트
 				const progress = Math.round(((processedCount + 1) / totalFiles) * 100)
 				progressBar.style.width = `${progress}%`
 				progressText.textContent = `${progress}%`
@@ -228,6 +254,18 @@ function displayImages() {
 	})
 }
 
+// 에러 모달을 표시하는 함수
+function showErrorModal(failedUrls) {
+	document.getElementById("errorMessage").textContent = "Server rejected image download\nPlease download manually and re-upload"
+	document.getElementById("errorFileList").innerHTML = failedUrls.map((url) => `<li>${url}</li>`).join("")
+	document.getElementById("errorModal").style.display = "flex"
+}
+
+// 에러 모달을 닫는 함수
+function closeErrorModal() {
+	document.getElementById("errorModal").style.display = "none"
+}
+
 function downloadZip() {
 	const zip = new JSZip()
 	const promises = resizedImages.map(({ url, name }) =>
@@ -248,7 +286,7 @@ function downloadZip() {
 
 function resetAll() {
 	fileInput.value = ""
-	imageUrls.value = ""
+	document.getElementById("imageUrls").value = ""
 	resizeWidthInput.value = ""
 	resizeHeightInput.value = ""
 	prefixCheckbox.checked = false
@@ -261,6 +299,7 @@ function resetAll() {
 	imageGrid.innerHTML = ""
 	resizedImagesSection.classList.add("hidden")
 	downloadZipBtn.classList.add("hidden")
+	errorModal.style.display = "none" // 에러 모달 숨기기
 }
 
 resizeWidthInput.addEventListener("input", toggleDisabledInput)
