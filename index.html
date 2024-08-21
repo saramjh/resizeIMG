@@ -9,20 +9,23 @@
   <meta name="keywords"
     content="image resize, photo editor, image processing, resize images online, free image resizer">
   <meta name="author" content="saramjh">
-  <meta name="robots" content="index, follow"> <!-- 검색 엔진에 색인 생성 요청 -->
-  <title>Online Image Resizer - Resize Images Easily</title> <!-- 키워드 포함 제목 -->
+  <meta name="robots" content="index, follow"> <!-- Request for search engine indexing -->
+  <title>Online Image Resizer - Resize Images Easily</title> <!-- Page title -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
-  <!-- Google Tag Manager -->
+
+  <!-- Google Tag Manager code -->
   <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-P3M972D5');</script>
   <!-- End Google Tag Manager -->
 </head>
@@ -32,9 +35,9 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3M972D5" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
   <header>
-    <h1><a href="/"><i class="fa-solid fa-wand-magic-sparkles"></i> Online Image
-        Resizer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></h1>
+    <h1><a href="/"><i class="fa-solid fa-wand-magic-sparkles"></i> Online Image Resizer</a></h1>
     <hr>
     <p>This image resizer never collects your information.</p>
     <p>This image resizer takes your local storage.</p>
@@ -42,7 +45,7 @@
   </header>
 
   <main class="container">
-    <!-- Section 1: Select Images -->
+    <!-- Image selection section -->
     <section class="section" aria-labelledby="selectImagesHeading">
       <h2 id="selectImagesHeading" class="section-header">1. Select Images or Enter Image URLs</h2>
       <p>Select multiple or single image to resize or enter image URLs.</p>
@@ -50,25 +53,25 @@
         <input type="file" id="fileInput" multiple aria-label="Upload images">
         <div class="file-list" id="fileList" aria-live="polite"></div>
         <div class="url-input-section">
-          <label id="imageUrlsLabel" for="imageUrls"> <i class="fa-solid fa-copy"></i> Copy & Paste Image URLs (one per
+          <label id="imageUrlsLabel" for="imageUrls"><i class="fa-solid fa-copy"></i> Copy & Paste Image URLs (one per
             line):</label>
           <textarea id="imageUrls" placeholder="Enter image URLs" aria-label="Image URLs"></textarea>
         </div>
       </div>
     </section>
 
-    <!-- Section 2: Resize Options -->
+    <!-- Resize options section -->
     <section class="section" aria-labelledby="resizeOptionsHeading">
       <h2 id="resizeOptionsHeading" class="section-header">2. Resize Options</h2>
       <div class="section-body">
         <div class="options">
           <div class="option-row">
-            <label for="resizeWidth">Width (px) </label>
+            <label for="resizeWidth">Width (px)</label>
             <input type="number" id="resizeWidth" placeholder="Enter width" aria-label="Width"
               oninput="handleDimensionInput()" min="1">
           </div>
           <div class="option-row">
-            <label for="resizeHeight">Height (px) </label>
+            <label for="resizeHeight">Height (px)</label>
             <input type="number" id="resizeHeight" placeholder="Enter height" aria-label="Height"
               oninput="handleDimensionInput()" min="1">
           </div>
@@ -84,8 +87,7 @@
         </div>
         <div class="options">
           <label for="prefixCheckbox">
-            <input type="checkbox" id="prefixCheckbox" aria-label="Prefix filenames">
-            Add "resized_" prefix to filenames
+            <input type="checkbox" id="prefixCheckbox" aria-label="Prefix filenames"> Add "resized_" prefix to filenames
           </label>
         </div>
 
@@ -95,14 +97,14 @@
       </div>
     </section>
 
-    <!-- Section 3: Resized Images -->
+    <!-- Resized images section -->
     <section id="resizedImagesSection" class="section hidden" aria-labelledby="resizedImagesHeading">
       <h2 id="resizedImagesHeading" class="section-header">3. Resized Images</h2>
       <div id="imageGrid" class="masonry-container" aria-live="polite"></div>
     </section>
   </main>
 
-  <!-- Error Modal -->
+  <!-- Error modal -->
   <div id="errorModal" class="modal hidden" aria-labelledby="errorModalHeading">
     <div class="errorModal-content">
       <h2 id="errorModalHeading"><i class="fa-solid fa-circle-exclamation"></i> Error</h2>
@@ -112,7 +114,7 @@
     </div>
   </div>
 
-  <!-- Process Modal -->
+  <!-- Processing modal -->
   <div id="resizeModal" class="modal hidden" aria-labelledby="resizeModalHeading">
     <div class="modal-content">
       <h2 id="resizeModalHeading">Processing Images</h2>

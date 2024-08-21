@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	margin: 0;
@@ -9,6 +10,7 @@ body {
 	min-height: 100vh;
 }
 
+/* Anchor Link Styles */
 a {
 	text-decoration: none;
 	color: #666;
@@ -18,6 +20,7 @@ a:hover {
 	color: #999;
 }
 
+/* Header Styles */
 header {
 	background-color: #ffffff;
 	border-bottom: 1px solid #e0e0e0;
@@ -40,12 +43,14 @@ header h1 {
 header hr {
 	width: 22rem;
 }
+
 header p {
 	font-size: 0.9em;
 	color: #666;
 	margin: 0.2rem 0;
 }
 
+/* Main Container Styles */
 .container {
 	flex: 1;
 	max-width: 1200px;
@@ -56,6 +61,7 @@ header p {
 	align-items: center;
 }
 
+/* Section Styles */
 .section {
 	width: 100%;
 	max-width: 900px;
@@ -84,6 +90,7 @@ header p {
 	box-sizing: border-box;
 }
 
+/* Option Styles */
 .options {
 	display: flex;
 	flex-direction: column;
@@ -103,6 +110,7 @@ header p {
 	margin: 0 0 5px;
 }
 
+/* Option Row Styles */
 .option-row {
 	display: flex;
 	justify-content: space-between;
@@ -115,6 +123,7 @@ header p {
 	width: 25%;
 }
 
+/* URL Input Section Styles */
 .url-input-section {
 	margin: 10px 0 0;
 	display: flex;
@@ -134,6 +143,8 @@ header p {
 	resize: vertical;
 	min-height: 100px;
 }
+
+/* Input Styles */
 input[type="file"] {
 	cursor: pointer;
 }
@@ -157,6 +168,7 @@ input[type="number"] {
 	box-sizing: border-box;
 }
 
+/* Format Selector Styles */
 .format {
 	display: flex;
 	flex-direction: row;
@@ -165,9 +177,11 @@ input[type="number"] {
 	align-items: center;
 	cursor: pointer;
 }
+
 .format label {
 	cursor: pointer;
 }
+
 #formatSelect {
 	width: 76%;
 	font-size: 2rem;
@@ -175,6 +189,7 @@ input[type="number"] {
 	cursor: pointer;
 }
 
+/* Button Styles */
 button {
 	font-size: 1em;
 	background-color: #888;
@@ -198,6 +213,15 @@ button:disabled {
 	cursor: not-allowed;
 }
 
+body > main > section:nth-child(2) > div > button.reset-btn {
+	background-color: #555;
+}
+
+body > main > section:nth-child(2) > div > button.reset-btn:hover {
+	background-color: #9d9d9d;
+}
+
+/* File List Styles */
 .file-list ul {
 	list-style: none;
 	padding: 0;
@@ -237,6 +261,7 @@ button:disabled {
 	color: #0071e3;
 }
 
+/* Masonry Layout Styles */
 .masonry-container {
 	column-count: 4;
 	column-gap: 1em;
@@ -260,6 +285,7 @@ button:disabled {
 	object-fit: cover;
 }
 
+/* Image Action Button Styles */
 .image-actions {
 	display: flex;
 	justify-content: center;
@@ -281,6 +307,7 @@ button:disabled {
 	background-color: #0056b3;
 }
 
+/* Footer Styles */
 footer {
 	background-color: #ffffff;
 	border-top: 1px solid #e0e0e0;
@@ -293,6 +320,7 @@ footer p {
 	color: #777;
 }
 
+/* Utility Classes */
 .hidden {
 	display: none;
 }
@@ -304,6 +332,7 @@ footer p {
 	cursor: not-allowed;
 }
 
+/* Modal Styles */
 .modal {
 	position: fixed;
 	top: 50%;
@@ -330,6 +359,7 @@ footer p {
 	box-sizing: border-box;
 }
 
+/* Progress Bar Styles */
 .progress-bar {
 	height: 10px;
 	background: #007bff;
@@ -338,6 +368,7 @@ footer p {
 	border-radius: 5px;
 }
 
+/* Error Modal Styles */
 #errorModal {
 	position: fixed;
 	top: 50%;
@@ -376,6 +407,7 @@ footer p {
 #errorModalHeading {
 	text-align: center;
 }
+
 #errorModalHeading i {
 	color: #9c1b1b;
 }
@@ -398,14 +430,17 @@ footer p {
 #errorFileList li {
 	margin-bottom: 5px;
 }
+
 #errorFileList li p {
 	text-align: center;
 	color: #cd2a2a;
 }
+
 #errorFileList li p i {
 	color: #9c1b1b;
 }
 
+/* Responsive Styles for Masonry Layout */
 @media (max-width: 1200px) {
 	.masonry-container {
 		column-count: 3;
@@ -424,7 +459,7 @@ footer p {
 	}
 }
 
-/* Buy Me a Coffee Button Container */
+/* Buy Me a Coffee Button */
 #bmc-button-container {
 	position: fixed;
 	bottom: 45px;
@@ -447,7 +482,7 @@ footer p {
 	}
 }
 
-/* loading icon */
+/* Loading Icon */
 #loaderBox {
 	display: flex;
 	justify-content: center;
@@ -457,6 +492,7 @@ footer p {
 	border-radius: 5px;
 	background-color: #ededed;
 }
+
 .loader {
 	width: 16px;
 	height: 16px;
@@ -480,6 +516,7 @@ footer p {
 	animation: move 3s linear infinite alternate;
 }
 
+/* Animation for Loading Icon */
 @keyframes move {
 	0%,
 	5% {
@@ -506,7 +543,6 @@ footer p {
 		left: 32px;
 		width: 16px;
 	}
-
 	75%,
 	80% {
 		left: 32px;

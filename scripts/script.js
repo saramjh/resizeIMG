@@ -1,6 +1,9 @@
+// Arrays to store resized images and failed images
 let resizedImages = []
-let failedImages = [] // 리사이즈 실패한 이미지들을 저장할 배열
+let failedImages = []
 let isResizing = false
+
+// DOM elements
 const imageGrid = document.getElementById("imageGrid")
 const modal = document.getElementById("resizeModal")
 const progressBar = document.getElementById("progressBar")
@@ -18,19 +21,19 @@ const errorModal = document.getElementById("errorModal")
 const errorFileList = document.getElementById("errorFileList")
 const imageUrls = document.getElementById("imageUrls")
 
-// 이벤트 리스너 추가
+// Event listeners for user inputs
 fileInput.addEventListener("change", updateFileList)
 imageUrls.addEventListener("input", updateFileList)
 resizeWidthInput.addEventListener("input", handleDimensionInput)
 resizeHeightInput.addEventListener("input", handleDimensionInput)
 
+// Updates the file list displayed in the UI
 function updateFileList() {
 	const files = Array.from(fileInput.files).filter((file) => isImageFile(file))
 	const urls = imageUrls.value.split("\n").filter(Boolean)
 
 	fileListContainer.innerHTML = ""
 
-	// 리사이즈 대상이 없을 경우 경고 메시지 표시
 	if (files.length === 0 && urls.length === 0) {
 		alert("No valid image files or URLs found. Please add at least one image or URL.")
 		return
@@ -38,7 +41,7 @@ function updateFileList() {
 
 	const fileListUl = document.createElement("ul")
 
-	// 로컬 파일 처리
+	// Add selected files to the list
 	Array.from(files).forEach((file, index) => {
 		if (isImageFile(file)) {
 			const listItem = document.createElement("li")
@@ -48,11 +51,11 @@ function updateFileList() {
             `
 			fileListUl.appendChild(listItem)
 		} else {
-			displayErrorMessage(file.name, "Not an image file") // 에러 메시지 표시
+			displayErrorMessage(file.name, "Not an image file")
 		}
 	})
 
-	// URL 처리
+	// Add selected URLs to the list
 	urls.forEach((url, index) => {
 		if (isValidImageUrl(url)) {
 			const urlIndex = index + files.length
@@ -63,23 +66,25 @@ function updateFileList() {
             `
 			fileListUl.appendChild(listItem)
 		} else {
-			displayErrorMessage(url, "Invalid URL format") // 에러 메시지 표시
+			displayErrorMessage(url, "Invalid URL format")
 		}
 	})
 
 	fileListContainer.appendChild(fileListUl)
 }
 
+// Checks if a file is an image based on its MIME type
 function isImageFile(file) {
 	return file && /image\/(jpg|jpeg|png|gif)/i.test(file.type)
 }
 
+// Checks if a URL is a valid image URL
 function isValidImageUrl(url) {
-	// URL을 인코딩하여 한글이 포함된 URL도 처리 가능하도록 수정
 	const encodedUrl = encodeURI(url)
 	return (encodedUrl.startsWith("http://") || encodedUrl.startsWith("https://")) && /\.(jpg|jpeg|png|gif|webp|tiff)$/i.test(encodedUrl)
 }
 
+// Handles the input for resizing dimensions
 function handleDimensionInput() {
 	const resizeWidth = parseInt(resizeWidthInput.value, 10)
 	const resizeHeight = parseInt(resizeHeightInput.value, 10)
@@ -104,13 +109,14 @@ function handleDimensionInput() {
 	}
 }
 
+// Begins the image resizing process
 function resizeImages() {
 	if (isResizing) return
 
 	const resizeWidth = parseInt(resizeWidthInput.value, 10)
 	const resizeHeight = parseInt(resizeHeightInput.value, 10)
 	const prefix = prefixCheckbox.checked
-	const format = formatSelect.value.toLowerCase() // 선택한 포맷
+	const format = formatSelect.value.toLowerCase()
 
 	if (!resizeWidth && !resizeHeight) {
 		alert("Please enter at least one dimension.")
@@ -120,7 +126,7 @@ function resizeImages() {
 	const files = Array.from(fileInput.files).filter((file) => isImageFile(file))
 	const urls = imageUrls.value.split("\n").filter(Boolean)
 
-	// 리사이즈할 파일이 체크된 것만 선택
+	// Select only checked files and URLs
 	const checkedFiles = files.filter((_, index) => document.getElementById(`file-${index}`)?.checked)
 	const checkedUrls = urls.filter((_, index) => document.getElementById(`file-${files.length + index}`)?.checked)
 
@@ -136,7 +142,7 @@ function resizeImages() {
 	resizeWidthInput.disabled = true
 	resizeHeightInput.disabled = true
 	prefixCheckbox.disabled = true
-	formatSelect.disabled = true // 포맷 선택 비활성화
+	formatSelect.disabled = true
 
 	modal.classList.remove("hidden")
 	let loadedCount = 0
@@ -144,19 +150,20 @@ function resizeImages() {
 	const totalFiles = checkedFiles.length + checkedUrls.length
 	const zip = new JSZip()
 
-	resizedImages = [] // 이전에 리사이즈된 이미지 초기화
-	failedImages = [] // 실패한 이미지 초기화
+	resizedImages = [] // Initialize resized images
+	failedImages = [] // Initialize failed images
 
-	// 로컬 파일 처리
+	// Process local files
 	checkedFiles.forEach((file, index) => {
 		processImageFile(file, index, totalFiles, resizeWidth, resizeHeight, prefix, format)
 	})
 
-	// URL 처리
+	// Process URLs
 	checkedUrls.forEach((url, index) => {
 		processImageUrl(url, index + checkedFiles.length, totalFiles, resizeWidth, resizeHeight, prefix, format)
 	})
 
+	// Processes a local image file
 	function processImageFile(file, index, totalFiles, resizeWidth, resizeHeight, prefix, format) {
 		const reader = new FileReader()
 		reader.onload = function (event) {
@@ -165,18 +172,19 @@ function resizeImages() {
 			updateProgress()
 		}
 		reader.onerror = function (event) {
-			const errorMessage = event.target.error.message // 발생한 에러 메시지를 가져옵니다.
-			handleProcessingError(file.name, errorMessage) // 에러 메시지를 전달합니다.
+			const errorMessage = event.target.error.message
+			handleProcessingError(file.name, errorMessage)
 		}
 		reader.readAsDataURL(file)
 	}
 
+	// Processes an image URL
 	function processImageUrl(url, index, totalFiles, resizeWidth, resizeHeight, prefix, format) {
 		const img = new Image()
-		img.crossOrigin = "anonymous" // CORS 문제 해결
+		img.crossOrigin = "anonymous"
 
 		img.onload = function () {
-			const fileName = decodeURIComponent(url.substring(url.lastIndexOf("/") + 1)) || `image-${index}.${format}` // 한글 파일명 디코딩
+			const fileName = decodeURIComponent(url.substring(url.lastIndexOf("/") + 1)) || `image-${index}.${format}`
 			const dataUrl = getDataUrlFromImage(img, format)
 			resizeAndStoreImage(dataUrl, fileName, resizeWidth, resizeHeight, prefix, format, index, totalFiles)
 			loadedCount++
@@ -186,17 +194,19 @@ function resizeImages() {
 		img.onerror = function () {
 			handleProcessingError(url, "Failed to load image due to CORS policy or other issues.")
 		}
-		img.src = encodeURI(url) // URL을 인코딩하여 로드
+		img.src = encodeURI(url)
 	}
 
+	// Handles errors during image processing
 	function handleProcessingError(item, message) {
 		console.error(`${item} - ${message}`)
-		failedImages.push(item) // 실패한 항목 저장
-		displayErrorMessage(item, message) // 에러 메시지 표시
-		showErrorModal(message) // 에러 모달 표시
+		failedImages.push(item)
+		displayErrorMessage(item, message)
+		showErrorModal(message)
 		modal.classList.add("hidden")
 	}
 
+	// Resizes the image and stores it in the ZIP archive
 	function resizeAndStoreImage(dataUrl, fileName, resizeWidth, resizeHeight, prefix, format, index, totalFiles) {
 		const img = new Image()
 		img.onload = function () {
@@ -213,7 +223,7 @@ function resizeImages() {
 
 			ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 			canvas.toBlob(function (blob) {
-				const extension = format === "jpeg" ? "jpg" : format // 'jpeg'을 'jpg'로 변경
+				const extension = format === "jpeg" ? "jpg" : format
 				const newFileName = `${prefix ? "resized_" : ""}${fileName.replace(/\.[^/.]+$/, "")}.${extension}`
 				zip.file(newFileName, blob, { binary: true })
 				resizedImages.push({ url: URL.createObjectURL(blob), name: newFileName })
@@ -228,6 +238,7 @@ function resizeImages() {
 		img.src = dataUrl
 	}
 
+	// Gets a data URL from an image element
 	function getDataUrlFromImage(image, format) {
 		const canvas = document.createElement("canvas")
 		canvas.width = image.width
@@ -237,6 +248,7 @@ function resizeImages() {
 		return canvas.toDataURL(`image/${format}`)
 	}
 
+	// Updates the progress bar and handles completion
 	function updateProgress() {
 		const progress = Math.round(((loadedCount + resizedCount) / (totalFiles * 2)) * 100)
 		progressBar.style.width = `${progress}%`
@@ -254,10 +266,10 @@ function resizeImages() {
 		}
 	}
 
+	// Displays the error modal with failed images
 	function showErrorModal(message) {
 		errorModal.classList.remove("hidden")
 		errorFileList.innerHTML = failedImages.map((file) => `<li>${file}<br><p><i class="fa-solid fa-circle-exclamation"></i> ${message}</li><p>`).join("")
-		// 리사이즈 중단 후 상태 초기화
 		isResizing = false
 		resizeBtn.disabled = false
 		fileInput.disabled = false
@@ -265,10 +277,11 @@ function resizeImages() {
 		resizeWidthInput.disabled = false
 		resizeHeightInput.disabled = false
 		prefixCheckbox.disabled = false
-		formatSelect.disabled = false // 포맷 선택 활성화
+		formatSelect.disabled = false
 		modal.classList.add("hidden")
 	}
 
+	// Resets the state after resizing is complete
 	function resetResizingState() {
 		resizeBtn.disabled = false
 		fileInput.disabled = false
@@ -276,11 +289,12 @@ function resizeImages() {
 		resizeWidthInput.disabled = false
 		resizeHeightInput.disabled = false
 		prefixCheckbox.disabled = false
-		formatSelect.disabled = false // 포맷 선택 활성화
+		formatSelect.disabled = false
 		isResizing = false
 	}
 }
 
+// Displays resized images in the UI
 function displayImages() {
 	resizedImagesSection.classList.remove("hidden")
 	imageGrid.innerHTML = ""
@@ -310,6 +324,7 @@ function displayImages() {
 	})
 }
 
+// Downloads all resized images as a ZIP file
 function downloadZip() {
 	const zip = new JSZip()
 	const promises = resizedImages.map(({ url, name }) =>
@@ -328,16 +343,18 @@ function downloadZip() {
 	})
 }
 
+// Reloads the page to reset all state
 function resetAll() {
-	window.location.reload() // 페이지 새로 고침
+	window.location.reload()
 }
 
+// Displays an error message in the error modal
 function displayErrorMessage(item, message) {
-	// 에러 모달을 표시하고, 에러 리스트를 업데이트합니다.
 	errorModal.classList.remove("hidden")
-	errorFileList.innerHTML += `<li>${item} - ${message}</li>` // 파일 이름과 에러 메시지를 함께 표시합니다.
+	errorFileList.innerHTML += `<li>${item} - ${message}</li>`
 }
 
+// Closes the error modal
 document.getElementById("closeError").addEventListener("click", () => {
 	errorModal.classList.add("hidden")
 	errorFileList.innerHTML = ""
