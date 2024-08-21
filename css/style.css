@@ -37,17 +37,17 @@ header a {
 }
 
 header h1 {
-	font-size: 1.5em;
+	font-size: 1.8em;
 	margin: 0;
 	color: #333;
 }
 
 header hr {
-	width: 16.5rem;
+	width: 20rem;
 }
 
 header p {
-	font-size: 0.7em;
+	font-size: 0.8em;
 	color: #666;
 	margin: 0.2rem 0;
 }
@@ -73,11 +73,11 @@ header p {
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	padding: 15px;
 	box-sizing: border-box;
-	font-size: 0.8rem;
+	font-size: 1rem;
 }
 
 .section-header {
-	font-size: 1.1em;
+	font-size: 1.5em;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 15px;
@@ -104,8 +104,8 @@ header p {
 
 .options label {
 	cursor: pointer;
-	font-size: 0.8rem;
-	line-height: 2rem;
+	font-size: 1rem;
+	line-height: 1.8rem;
 }
 
 .section-body button {
@@ -136,13 +136,13 @@ header p {
 .url-input-section #imageUrlsLabel {
 	width: 100%;
 	padding: 0 0 3px 3px;
-	font-size: 0.7rem;
+	font-size: 1rem;
 }
 
 #imageUrls {
 	display: flex;
 	width: auto;
-	font-size: 0.7rem;
+	font-size: 1rem;
 	resize: vertical;
 	min-height: 100px;
 }
@@ -170,7 +170,7 @@ input[type="number"] {
 	border: 1px solid #d0d0d0;
 	margin: 5px 0;
 	box-sizing: border-box;
-	font-size: 0.7rem;
+	font-size: 1rem;
 }
 
 /* Format Selector Styles */
@@ -189,14 +189,14 @@ input[type="number"] {
 
 #formatSelect {
 	width: 76%;
-	font-size: 0.8rem;
+	font-size: 1rem;
 	font-weight: 500;
 	cursor: pointer;
 }
 
 /* Button Styles */
 button {
-	font-size: 1em;
+	font-size: 1.2rem;
 	background-color: #888;
 	color: #ffffff;
 	border: none;
@@ -288,6 +288,13 @@ body > main > section:nth-child(2) > div > button.reset-btn:hover {
 	height: auto;
 	border-radius: 8px;
 	object-fit: cover;
+	cursor: pointer;
+}
+
+.masonry-item img:hover {
+	opacity: 0.5;
+	cursor: pointer;
+	transition: opacity 0.7s ease;
 }
 
 /* Image Action Button Styles */

@@ -304,6 +304,12 @@ function displayImages() {
 
 		const imgElement = document.createElement("img")
 		imgElement.src = url
+		imgElement.onclick = () => {
+			const a = document.createElement("a")
+			a.href = url
+			a.download = name
+			a.click()
+		}
 
 		const downloadBtn = document.createElement("button")
 		downloadBtn.textContent = "Download"
