@@ -1,6 +1,6 @@
 ## Online Image Resizer
 <div align="center"><a href="https://saramjh.github.io/resizeIMG/"><img src="https://github.com/user-attachments/assets/b5d6bca8-b9a4-4fdd-8aa2-c218b4e91cd0" width="20%"></a></div>
-link<https://saramjh.github.io/resizeIMG/>
+[link](https://saramjh.github.io/resizeIMG/)
 An easy-to-use online tool for resizing images while maintaining their aspect ratio. Upload images or provide URLs to resize, then download the resized images or get them as a ZIP file.
 
 ### Features
