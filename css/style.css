@@ -9,12 +9,26 @@ body {
 	min-height: 100vh;
 }
 
+a {
+	text-decoration: none;
+	color: #666;
+}
+
+a:hover {
+	color: #999;
+}
+
 header {
 	background-color: #ffffff;
 	border-bottom: 1px solid #e0e0e0;
-	padding: 10px 20px;
+	padding: 20px 0;
 	text-align: center;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+header a {
+	cursor: pointer;
+	color: #333;
 }
 
 header h1 {
@@ -23,9 +37,13 @@ header h1 {
 	color: #333;
 }
 
+header hr {
+	width: 22rem;
+}
 header p {
 	font-size: 0.9em;
 	color: #666;
+	margin: 0.2rem 0;
 }
 
 .container {
@@ -62,7 +80,62 @@ header p {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
+	min-width: 450px;
 	box-sizing: border-box;
+}
+
+.options {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.options label {
+	cursor: pointer;
+	font-size: 1rem;
+	line-height: 2rem;
+}
+
+.section-body button {
+	margin: 0 0 5px;
+}
+
+.option-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.option-row > label {
+	font-weight: 500;
+	width: 25%;
+}
+
+.url-input-section {
+	margin: 10px 0 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.url-input-section #imageUrlsLabel {
+	width: 100%;
+	padding: 0 0 3px 3px;
+}
+
+#imageUrls {
+	display: flex;
+	width: 100%;
+	font-size: 0.8rem;
+	resize: vertical;
+	min-height: 100px;
+}
+input[type="file"] {
+	cursor: pointer;
 }
 
 input[type="file"],
@@ -76,7 +149,7 @@ textarea {
 }
 
 input[type="number"] {
-	width: 100%;
+	width: 80%;
 	padding: 10px;
 	border-radius: 4px;
 	border: 1px solid #d0d0d0;
@@ -84,14 +157,31 @@ input[type="number"] {
 	box-sizing: border-box;
 }
 
+.format {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+}
+.format label {
+	cursor: pointer;
+}
+#formatSelect {
+	width: 76%;
+	font-size: 2rem;
+	font-weight: 500;
+	cursor: pointer;
+}
+
 button {
 	font-size: 1em;
-	background-color: #007bff;
+	background-color: #888;
 	color: #ffffff;
 	border: none;
 	padding: 10px;
 	cursor: pointer;
-	margin-top: 10px;
 	width: 100%;
 	border-radius: 4px;
 	transition: background-color 0.3s;
@@ -99,7 +189,7 @@ button {
 }
 
 button:hover {
-	background-color: #0056b3;
+	background-color: #b2b5b8;
 }
 
 button:disabled {
@@ -112,26 +202,45 @@ button:disabled {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .file-list li {
-	margin-bottom: 10px;
+	margin-bottom: 12px;
+	padding: 10px 15px;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	transition: background-color 0.3s ease;
+	min-width: 400px;
+}
+
+.file-list li:hover {
+	background-color: #e5e5e5;
 }
 
 .file-list input[type="checkbox"] {
-	margin-right: 10px;
+	margin-right: 15px;
+	transform: scale(1.2);
+	cursor: pointer;
 }
 
 .file-list label {
-	font-size: 1em;
-	color: #333;
+	font-size: 1rem;
+	font-weight: 400;
+	color: #1d1d1f;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.file-list label:hover {
+	color: #0071e3;
 }
 
 .masonry-container {
 	column-count: 4;
 	column-gap: 1em;
-	margin: 20px 0;
+	margin: 10px 0;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -154,7 +263,7 @@ button:disabled {
 .image-actions {
 	display: flex;
 	justify-content: center;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 .image-actions button {
@@ -164,7 +273,6 @@ button:disabled {
 	cursor: pointer;
 	padding: 5px 10px;
 	font-size: 0.9em;
-	margin-left: 5px;
 	border-radius: 4px;
 	transition: background-color 0.3s;
 }
@@ -197,11 +305,10 @@ footer p {
 }
 
 .modal {
-	display: none;
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%); /* Center modal */
+	transform: translate(-50%, -50%);
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.5);
@@ -211,12 +318,15 @@ footer p {
 }
 
 .modal-content {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	background: #ffffff;
 	padding: 20px;
 	border-radius: 8px;
 	text-align: center;
-	max-width: 500px;
-	width: 90%; /* Adjusted width for responsiveness */
+	width: 480px;
 	box-sizing: border-box;
 }
 
@@ -228,27 +338,19 @@ footer p {
 	border-radius: 5px;
 }
 
-/* Error Modal Styles */
 #errorModal {
-	display: none;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 80%;
-	height: auto;
-	max-width: 600px; /* 최대 너비 조정 */
-	background: #ffffff;
-	border-radius: 8px;
+	width: auto;
+	min-width: 450px;
 	padding: 20px;
+	height: auto;
+	background: #ffffff;
+	border-radius: 5px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	z-index: 1001;
-	overflow: auto; /* 스크롤이 필요한 경우 스크롤 가능 */
-}
-
-#errorModal .modal-content {
-	position: relative;
-	padding: 20px; /* 패딩을 추가하여 콘텐츠와 테두리 간의 간격 조정 */
 }
 
 #errorModal h2 {
@@ -256,38 +358,52 @@ footer p {
 	font-size: 1.5em;
 }
 
-#errorModal span.close {
+#errorModal button {
+	background: #c33434;
+	color: #ffffff;
+	border: none;
+	padding: 10px;
 	cursor: pointer;
+	border-radius: 5px;
+	font-size: 1rem;
+	transition: background-color 0.3s;
+}
+
+#errorModal button:hover {
+	background-color: #8b1818;
+}
+
+#errorModalHeading {
+	text-align: center;
+}
+#errorModalHeading i {
+	color: #9c1b1b;
+}
+
+#errorMessage {
+	text-align: center;
+	color: #444;
 }
 
 #errorFileList {
 	margin-top: 10px;
-	list-style: none;
+	color: #333;
 	padding: 0;
-	max-height: 200px; /* 리스트의 최대 높이 조정 */
-	overflow-y: auto; /* 스크롤이 필요한 경우 스크롤 가능 */
+	height: auto;
+	overflow: hidden;
+	word-break: break-all;
+	line-height: 1rem;
 }
 
 #errorFileList li {
 	margin-bottom: 5px;
 }
-
-.modal-content button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: #007bff;
-	color: #ffffff;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
-	border-radius: 4px;
-	font-size: 0.9em;
-	transition: background-color 0.3s;
+#errorFileList li p {
+	text-align: center;
+	color: #cd2a2a;
 }
-
-.modal-content button:hover {
-	background-color: #0056b3;
+#errorFileList li p i {
+	color: #9c1b1b;
 }
 
 @media (max-width: 1200px) {
@@ -311,12 +427,12 @@ footer p {
 /* Buy Me a Coffee Button Container */
 #bmc-button-container {
 	position: fixed;
-	bottom: 45px; /* Adjust the vertical position from the bottom */
-	right: 10px; /* Adjust the horizontal position from the right */
-	width: 210px; /* Adjust the width if needed */
-	height: 60px; /* Adjust the height if needed */
-	animation: bounce 2s infinite; /* Apply bounce animation */
-	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Apply shadow effect */
+	bottom: 45px;
+	right: 10px;
+	width: 210px;
+	height: 60px;
+	animation: bounce 2s infinite;
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
 	border-radius: 12px;
 }
 
@@ -328,5 +444,77 @@ footer p {
 	}
 	50% {
 		transform: translateY(-10px);
+	}
+}
+
+/* loading icon */
+#loaderBox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	min-height: 50px;
+	border-radius: 5px;
+	background-color: #ededed;
+}
+.loader {
+	width: 16px;
+	height: 16px;
+	position: relative;
+	left: -10px;
+	border-radius: 50%;
+	color: #fff;
+	background: currentColor;
+	box-shadow: 32px 0, -32px 0, 64px 0;
+}
+
+.loader::after {
+	content: "";
+	position: absolute;
+	left: -32px;
+	top: 0;
+	width: 16px;
+	height: 16px;
+	border-radius: 10px;
+	background: #0056b3;
+	animation: move 3s linear infinite alternate;
+}
+
+@keyframes move {
+	0%,
+	5% {
+		left: -32px;
+		width: 16px;
+	}
+	15%,
+	20% {
+		left: -32px;
+		width: 48px;
+	}
+	30%,
+	35% {
+		left: 0px;
+		width: 16px;
+	}
+	45%,
+	50% {
+		left: 0px;
+		width: 48px;
+	}
+	60%,
+	65% {
+		left: 32px;
+		width: 16px;
+	}
+
+	75%,
+	80% {
+		left: 32px;
+		width: 48px;
+	}
+	95%,
+	100% {
+		left: 64px;
+		width: 16px;
 	}
 }
