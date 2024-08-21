@@ -7,6 +7,7 @@ body {
 	color: #333;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	min-height: 100vh;
 }
 
@@ -26,7 +27,8 @@ header {
 	border-bottom: 1px solid #e0e0e0;
 	padding: 20px 0;
 	text-align: center;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	box-shadow: (0 1px 3px rgba(0, 0, 0, 0.1));
 }
 
 header a {
@@ -35,17 +37,17 @@ header a {
 }
 
 header h1 {
-	font-size: 1.8em;
+	font-size: 1.5em;
 	margin: 0;
 	color: #333;
 }
 
 header hr {
-	width: 22rem;
+	width: 16.5rem;
 }
 
 header p {
-	font-size: 0.9em;
+	font-size: 0.7em;
 	color: #666;
 	margin: 0.2rem 0;
 }
@@ -53,12 +55,12 @@ header p {
 /* Main Container Styles */
 .container {
 	flex: 1;
-	max-width: 1200px;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 15px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
 }
 
 /* Section Styles */
@@ -69,12 +71,13 @@ header p {
 	background-color: #ffffff;
 	border-radius: 8px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	padding: 20px;
+	padding: 15px;
 	box-sizing: border-box;
+	font-size: 0.8rem;
 }
 
 .section-header {
-	font-size: 1.6em;
+	font-size: 1.1em;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 15px;
@@ -102,7 +105,7 @@ header p {
 
 .options label {
 	cursor: pointer;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	line-height: 2rem;
 }
 
@@ -134,12 +137,13 @@ header p {
 .url-input-section #imageUrlsLabel {
 	width: 100%;
 	padding: 0 0 3px 3px;
+	font-size: 0.7rem;
 }
 
 #imageUrls {
 	display: flex;
-	width: 100%;
-	font-size: 0.8rem;
+	width: auto;
+	font-size: 0.7rem;
 	resize: vertical;
 	min-height: 100px;
 }
@@ -147,6 +151,7 @@ header p {
 /* Input Styles */
 input[type="file"] {
 	cursor: pointer;
+	width: 100%;
 }
 
 input[type="file"],
@@ -166,6 +171,7 @@ input[type="number"] {
 	border: 1px solid #d0d0d0;
 	margin: 5px 0;
 	box-sizing: border-box;
+	font-size: 0.7rem;
 }
 
 /* Format Selector Styles */
@@ -184,7 +190,7 @@ input[type="number"] {
 
 #formatSelect {
 	width: 76%;
-	font-size: 2rem;
+	font-size: 0.8rem;
 	font-weight: 500;
 	cursor: pointer;
 }
@@ -311,13 +317,15 @@ body > main > section:nth-child(2) > div > button.reset-btn:hover {
 footer {
 	background-color: #ffffff;
 	border-top: 1px solid #e0e0e0;
-	padding: 15px;
+	padding: 5px;
 	text-align: center;
+	width: 100%;
 }
 
 footer p {
 	margin: 0;
 	color: #777;
+	font-size: 0.7rem;
 }
 
 /* Utility Classes */
@@ -448,12 +456,48 @@ footer p {
 }
 
 @media (max-width: 768px) {
+	header hr {
+		width: 17rem;
+	}
 	.masonry-container {
 		column-count: 2;
 	}
 }
 
 @media (max-width: 480px) {
+	header hr {
+		width: 16.5rem;
+	}
+
+	.container {
+		flex: 1;
+		margin: 0 auto;
+		padding: 15px 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	}
+
+	.section {
+		width: 100%;
+		margin-bottom: 20px;
+		background-color: #ffffff;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		padding: 15px;
+		box-sizing: border-box;
+		font-size: 0.8rem;
+	}
+	.section-body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		min-width: 300px;
+		box-sizing: border-box;
+	}
+
 	.masonry-container {
 		column-count: 1;
 	}
