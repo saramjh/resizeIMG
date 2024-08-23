@@ -1,37 +1,8 @@
-JavaScript 코드를 분석하여 애플리케이션의 기능과 동작 방식을 이해했습니다. 이 코드는 사용자가 이미지를 업로드하거나 URL을 입력하여 이미지를 리사이즈하고, 그 결과를 다운로드할 수 있는 웹 애플리케이션을 구현합니다.
-
-### 분석된 기능
-
-1. **이미지 선택 및 URL 입력**:
-
-   - 사용자는 로컬 파일을 선택하거나 이미지 URL을 입력하여 이미지 리스트를 생성합니다.
-   - 입력된 파일과 URL을 검증하여 올바른 이미지 파일인지 확인합니다.
-
-2. **리사이즈 옵션**:
-
-   - 사용자가 입력한 너비와 높이 값을 기반으로 이미지를 리사이즈할 수 있습니다. 비율에 맞게 크기를 자동 조정합니다.
-   - 이미지 포맷(JPG, PNG, GIF, WEBP)과 파일 이름에 접두사를 추가하는 옵션을 설정할 수 있습니다.
-
-3. **이미지 처리**:
-
-   - 로컬 파일과 URL로부터 이미지를 읽어와 리사이즈합니다.
-   - 리사이즈된 이미지를 ZIP 파일로 압축하거나 화면에 표시합니다.
-   - 처리 도중 오류가 발생하면 에러 메시지를 표시합니다.
-
-4. **진행 상태 및 결과 표시**:
-
-   - 리사이즈 진행 상황을 시각적으로 보여주는 진행 바와 상태 텍스트를 업데이트합니다.
-   - 리사이즈가 완료된 후, 이미지를 화면에 표시하고 다운로드 링크를 제공합니다.
-   - 오류가 발생한 경우, 에러 모달을 통해 사용자에게 오류 정보를 제공합니다.
-
-5. **ZIP 다운로드**:
-
-   - 리사이즈된 이미지를 ZIP 파일로 다운로드할 수 있는 기능을 제공합니다.
-
-6. **리셋 기능**:
-   - 모든 상태를 초기화하고 페이지를 새로 고침하여 초기 상태로 돌아갈 수 있습니다.
-
 ## Online Image Resizer
+
+<div align="center"><a href="https://saramjh.github.io/resizeIMG/"><img src="https://github.com/user-attachments/assets/b5d6bca8-b9a4-4fdd-8aa2-c218b4e91cd0" width="20%"></a></div>
+
+<a href="https://saramjh.github.io/resizeIMG/">Go to Tool</a>
 
 An easy-to-use online tool for resizing images while maintaining their aspect ratio. Upload images or provide URLs to resize, then download the resized images or get them as a ZIP file.
 
