@@ -675,21 +675,6 @@ footer p {
 		width: 160px;
 	}
 
-	/* Tooltip arrow */
-	&::after {
-		position: absolute;
-		top: -12px;
-		left: 9px;
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-top: 5px solid #2b222a;
-		content: " ";
-		font-size: 0;
-		line-height: 0;
-		margin-left: -5px;
-		width: 0;
-	}
-
 	/* Setting up the transition */
 	&::before,
 	&::after {
