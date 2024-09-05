@@ -27,7 +27,6 @@ imageUrls.addEventListener("input", updateFileList)
 resizeWidthInput.addEventListener("input", handleDimensionInput)
 resizeHeightInput.addEventListener("input", handleDimensionInput)
 
-// Updates the file list displayed in the UI
 function updateFileList() {
 	const files = Array.from(fileInput.files).filter((file) => isImageFile(file))
 	const urls = imageUrls.value.split("\n").filter(Boolean)
@@ -41,14 +40,28 @@ function updateFileList() {
 
 	const fileListUl = document.createElement("ul")
 
+	// Helper function to truncate name but show the file extension
+	function truncateName(name, maxLength) {
+		if (name.length <= maxLength) {
+			return name
+		}
+		const extension = name.substring(name.lastIndexOf("."))
+		const baseName = name.substring(0, maxLength - extension.length - 3) // Adjust to account for "..."
+		return `${baseName}...${extension}`
+	}
+
 	// Add selected files to the list
 	Array.from(files).forEach((file, index) => {
 		if (isImageFile(file)) {
 			const listItem = document.createElement("li")
+
+			// Truncate file name but keep the extension visible
+			const displayName = truncateName(file.name, 50)
+
 			listItem.innerHTML = `
-                <input type="checkbox" id="file-${index}" checked>
-                <label for="file-${index}">${file.name}</label>
-            `
+							<input type="checkbox" id="file-${index}" checked>
+							<label for="file-${index}" title="${file.name}">${displayName}</label>
+					`
 			fileListUl.appendChild(listItem)
 		} else {
 			displayErrorMessage(file.name, "Not an image file")
@@ -59,11 +72,15 @@ function updateFileList() {
 	urls.forEach((url, index) => {
 		if (isValidImageUrl(url)) {
 			const urlIndex = index + files.length
+
+			// Truncate URL but keep the extension visible if applicable
+			const displayUrl = truncateName(url, 50)
+
 			const listItem = document.createElement("li")
 			listItem.innerHTML = `
-                <input type="checkbox" id="file-${urlIndex}" checked>
-                <label for="file-${urlIndex}">${url}</label>
-            `
+							<input type="checkbox" id="file-${urlIndex}" checked>
+							<label for="file-${urlIndex}" title="${url}">${displayUrl}</label>
+					`
 			fileListUl.appendChild(listItem)
 		} else {
 			displayErrorMessage(url, "Invalid URL format")
@@ -75,7 +92,7 @@ function updateFileList() {
 
 // Checks if a file is an image based on its MIME type
 function isImageFile(file) {
-	return file && /image\/(jpg|jpeg|png|gif)/i.test(file.type)
+	return file && /image\/(jpg|jpeg|png|gif|webp|tiff)/i.test(file.type)
 }
 
 // Checks if a URL is a valid image URL
